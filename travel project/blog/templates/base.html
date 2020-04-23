@@ -17,6 +17,9 @@
     <li class="nav-link">
         <a href="{{url_for('core.information')}}">What is this site?</a>
     </li>
+    <li class="nav-link">
+        <a href="{{url_for('tickets.ticket')}}">Tickets</a>
+    </li>
 
     {% if current_user.is_authenticated %}
     <li class="nav-link">

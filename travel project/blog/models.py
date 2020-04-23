@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
 
     posts = db.relationship('Post', backref='author', lazy=True)
+    tickets = db.relationship('Ticket', backref='consumer', lazy=True)
 
     def __init__(self, email, username, password):
         self.email = email
@@ -46,3 +47,42 @@ class Post(db.Model):
 
     def __repr__(self):
         return f'Post ID: {self.id}, User ID: {self.user_id}, Date: {self.date}'
+
+
+class Ticket(db.Model):
+
+    users = db.relationship(User)
+    #flight =
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
+    departure = db.Column(db.String(128), nullable=False)
+    arrival = db.Column(db.String(128), nullable=False)
+
+    def __init__(self, date, departure, arrival, user_id):
+        self.date = date
+        self.departure = departure
+        self.arrival = arrival
+        self.user_id = user_id
+
+    def __repr__(self):
+        return f'Ticket ID: {self.id}, User ID: {self.user_id}, Date: {self.date}, Departure-Arrival: {self.departure} - {self.arrival}'
+
+
+class Flight(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, nullable=False)
+    departure = db.Column(db.String(128), nullable=False)
+    arrival = db.Column(db.String(128), nullable=False)
+    price = db.Column(db.Integer)
+
+    def __init__(self, date, departure, arrival, price):
+        self.date = date
+        self.departure = departure
+        self.arrival = arrival
+        self.price = price
+
+    def __repr__(self):
+        return f'Flight ID: {self.id}, Date: {self.date}, Departure-Arrival: {self.departure} - {self.arrival}'
