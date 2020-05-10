@@ -11,7 +11,18 @@
                 <h2>{{flight.departure}} — {{flight.arrival}}</h2>
                 <h3> {{ flight.date }} </h3>
                 <p>price: {{ flight.price }}</p>
-                <a class = 'btn btn-primary' href="#"> Buy ticket </a>
+                <form action="{{url_for('tickets.charge')}}" methods="POST">
+                    <script
+                        src = "https://checkout.stripe.com/checkout.js"
+                        class = "stripe-button"
+                        data-key = {{public_key}}
+                        data-amount ="1000"
+                        data-name = "Purchasing a ticket"
+                        data-description = "Purchase"
+                        data-locale = "auto"
+                        data-zip-code = "true"
+                    ></script>
+                </form>
             </div>
         </div>
         {% endfor %}
