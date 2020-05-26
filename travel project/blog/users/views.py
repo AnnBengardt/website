@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from blog import db
-from blog.models import User, Post
+from blog.models import User, Post, Ticket
 from blog.users.forms import RegisterForm, LoginForm, UpdateUserForm
 from blog.users.picture_handler import add_profile_pic
 
@@ -72,6 +72,18 @@ def user_posts(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = Post.query.filter_by(author=user).order_by(Post.date.desc()).paginate(page=page, per_page=5)
     return render_template('user_posts.html', posts=posts, user=user)
+
+
+@login_required
+@users.route('/myinfo')
+def my_info():
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=current_user.username).first_or_404()
+    profile_image = current_user.profile_image
+    posts = Post.query.filter_by(author=user).order_by(Post.date.desc()).paginate(page=page, per_page=5)
+    tickets = Ticket.query.filter_by(user_id=current_user.id).order_by(Ticket.date.asc()).paginate(page=page, per_page=5)
+    return render_template('myinfo.html', user=user, profile_image=profile_image, posts=posts, tickets=tickets)
+
 
 
 

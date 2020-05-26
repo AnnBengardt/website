@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <div align="center">
+            <h1>{{current_user.username}} account info</h1>
+            <img align='center' src="{{url_for('static', filename='profile_pics/'+current_user.profile_image)}}">
+        </div>
+    </div>
+        <div class="container">
+            <p>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#posts" aria-expanded="false" aria-controls="collapseExample">
+                My posts
+              </button>
+              <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tickets" aria-expanded="false" aria-controls="collapseExample">
+                My tickets
+              </button>
+            </p>
+        <div class="collapse" id="posts">
+            <div class="card card-body">
+                {% for post in posts.items %}
+                <h2> <a href="{{url_for('posts.read_post', post_id = post.id)}}">{{post.title}}</a> </h2>
+                Author: <a href="{{url_for('users.user_posts', username = post.author.username)}}">{{post.author.username}}</a>
+                <p class="text-muted">Publishing date: {{post.date.strftime("%d-%m-%Y")}}</p>
+                <br>
+                <p>{{post.text}}</p>
+                {% endfor %}
+            </div>
+
+            <nav aria-label="Page Navigation">
+                <ul class="pagination justify-content-center">
+                    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                        {% if posts.page == page_num %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="{{url_for('users.user_posts', username=user.username, page=page_num)}}">{{page_num}}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{url_for('users.user_posts', username=user.username, page=page_num)}}">{{page_num}}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+        </div>
+        <div class="collapse" id="tickets">
+            <div class="card card-body">
+                <div class="container">
+                    {% for ticket in tickets.items %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h2>{{ticket.departure}} — {{ticket.arrival}}</h2>
+                            <h3> {{ ticket.date }} </h3>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <nav aria-label="Page Navigation">
+                    <ul class="pagination justify-content-center">
+                        {% for page_num in tickets.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                            {% if tickets.page == page_num %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="{{url_for('users.my_info', page=page_num)}}">{{page_num}}</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{url_for('users.my_info', page=page_num)}}">{{page_num}}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </nav>
+{% endblock %}

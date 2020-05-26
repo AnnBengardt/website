@@ -49,27 +49,6 @@ class Post(db.Model):
         return f'Post ID: {self.id}, User ID: {self.user_id}, Date: {self.date}'
 
 
-class Ticket(db.Model):
-
-    users = db.relationship(User)
-    #flight =
-
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    date = db.Column(db.DateTime, nullable=False)
-    departure = db.Column(db.String(128), nullable=False)
-    arrival = db.Column(db.String(128), nullable=False)
-
-    def __init__(self, date, departure, arrival, user_id):
-        self.date = date
-        self.departure = departure
-        self.arrival = arrival
-        self.user_id = user_id
-
-    def __repr__(self):
-        return f'Ticket ID: {self.id}, User ID: {self.user_id}, Date: {self.date}, Departure-Arrival: {self.departure} - {self.arrival}'
-
-
 class Flight(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
@@ -86,3 +65,26 @@ class Flight(db.Model):
 
     def __repr__(self):
         return f'Flight ID: {self.id}, Date: {self.date}, Departure-Arrival: {self.departure} - {self.arrival}'
+
+
+class Ticket(db.Model):
+
+    users = db.relationship(User)
+    flight = db.relationship(Flight)
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    flight_id = db.Column(db.Integer, db.ForeignKey('flight.id'))
+    date = db.Column(db.DateTime, nullable=False)
+    departure = db.Column(db.String(128), nullable=False)
+    arrival = db.Column(db.String(128), nullable=False)
+
+    def __init__(self, date, departure, arrival, user_id, flight_id):
+        self.date = date
+        self.departure = departure
+        self.arrival = arrival
+        self.user_id = user_id
+        self.flight_id = flight_id
+
+    def __repr__(self):
+        return f'Ticket ID: {self.id}, User ID: {self.user_id}, Date: {self.date}, Departure-Arrival: {self.departure} - {self.arrival}'

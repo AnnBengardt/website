@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, request, redirect, Blueprint, abort
 from flask_login import current_user, login_required
 from blog import db
-from blog.models import Flight
+from blog.models import Flight, Ticket
 import stripe
 
 public_key = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh'
@@ -18,8 +18,13 @@ def ticket():
     return render_template('ticket.html', flights=flights, public_key=public_key)
 
 
-@tickets.route('/success')
-def success():
+@tickets.route('/success/<flight_id>')
+def success(flight_id):
+    info = Flight.query.filter_by(id=flight_id).first()
+    if info:
+        new_ticket = Ticket(info.date, info.departure, info.arrival, current_user.id, info.id)
+        db.session.add(new_ticket)
+        db.session.commit()
     return render_template('success.html')
 
 
@@ -33,9 +38,6 @@ def charge():
 
     charge = stripe.Charge.create(
         customer=customer.id,
-        amount=1000,
-        currency='usd',
+        currency='rub',
         description='Ticket Charge'
     )
-
-    return redirect(url_for("tickets.success"))
