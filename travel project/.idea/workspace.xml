@@ -24,8 +24,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -40,6 +41,13 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/blog/ticket_generator.py" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\-\Documents\Универ\Питон\travel project\blog\static" />
+      <recent name="C:\Users\-\Documents\Универ\Питон\travel project\blog\templates\styles" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -84,7 +92,8 @@
       <workItem from="1587654853817" duration="5292000" />
       <workItem from="1589103958649" duration="13561000" />
       <workItem from="1590486259567" duration="1206000" />
-      <workItem from="1590487799986" duration="16190000" />
+      <workItem from="1590487799986" duration="16527000" />
+      <workItem from="1590570208245" duration="17873000" />
     </task>
     <servers />
   </component>

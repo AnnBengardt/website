@@ -2,6 +2,7 @@ from flask import render_template, url_for, flash, request, redirect, Blueprint,
 from flask_login import current_user, login_required
 from blog import db
 from blog.models import Flight, Ticket
+from blog.tickets.forms import SearchForm
 import stripe
 
 public_key = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh'
@@ -11,11 +12,21 @@ stripe.api_key = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
 tickets = Blueprint('tickets', __name__)
 
 
-@tickets.route('/ticket')
+@tickets.route('/ticket', methods=['GET', 'POST'])
 def ticket():
-    page = request.args.get('page', 1, type=int)
-    flights = Flight.query.order_by(Flight.date.asc()).paginate(page=page, per_page=7)
-    return render_template('ticket.html', flights=flights, public_key=public_key)
+    form = SearchForm()
+    if form.validate_on_submit():
+        page = request.args.get('page', 1, type=int)
+        if form.select.data == 'Departure location':
+            flights = Flight.query.filter_by(departure=form.search.data).paginate(page=page, per_page=5)
+        else:
+            flights = Flight.query.filter_by(arrival=form.search.data).paginate(page=page, per_page=5)
+        return render_template('ticket.html', flights=flights, public_key=public_key, form=form)
+    else:
+        page = request.args.get('page', 1, type=int)
+        flights = Flight.query.order_by(Flight.date.asc()).paginate(page=page, per_page=7)
+
+        return render_template('ticket.html', flights=flights, public_key=public_key, form=form)
 
 
 @tickets.route('/success/<flight_id>')

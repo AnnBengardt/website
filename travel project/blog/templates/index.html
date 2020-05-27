@@ -8,7 +8,11 @@
         {% for post in posts.items %}
         <div class="card">
             <div class="card-body">
-                <h2> <a class="card-title" href="{{url_for('posts.read_post', post_id = post.id)}}"></a>{{post.title}}</h2>
+                {% if post.date.strftime('%Y-%m-%d') == today %}
+                    <h2> <a class="card-title" href="{{url_for('posts.read_post', post_id = post.id)}}"></a>{{post.title}} <span class="badge badge-danger">New!</span></h2>
+                {% else %}
+                    <h2> <a class="card-title" href="{{url_for('posts.read_post', post_id = post.id)}}"></a>{{post.title}}</h2>
+                {% endif %}
                 <a href="{{url_for('users.user_posts', username=post.author.username)}}">Author: {{ post.author.username }}</a>
                 <p>Publishing date: {{post.date.strftime('%d-%m-%Y')}}</p>
                 <a class = 'btn btn-primary' href="{{url_for('posts.read_post', post_id = post.id)}}"> Read this post </a>
