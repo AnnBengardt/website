@@ -7,6 +7,7 @@ from blog.users.picture_handler import add_profile_pic
 
 users = Blueprint('users', __name__)
 
+
 @users.route('/logout')
 def logout():
     logout_user()
@@ -19,9 +20,10 @@ def register():
 
     if form.validate_on_submit():
         user = User(email=form.email.data, username=form.username.data, password=form.password.data)
+        if User.query.filter_by(email=form.email.data).first() or User.query.filter_by(username=form.username.data).first():
+            return redirect(url_for('users.register'))
         db.session.add(user)
         db.session.commit()
-        flash('Congrats! You have been registered')
         return redirect(url_for('users.login'))
     return render_template('register.html', form=form)
 

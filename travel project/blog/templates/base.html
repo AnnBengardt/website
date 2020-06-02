@@ -21,11 +21,11 @@
     <li class="nav-link">
         <h5><a href="{{url_for('core.information')}}">About</a></h5>
     </li>
-    <li class="nav-link">
-        <h5><a href="{{url_for('tickets.ticket')}}">Tickets</a></h5>
-    </li>
 
     {% if current_user.is_authenticated %}
+      <li class="nav-link">
+        <h5><a href="{{url_for('tickets.ticket')}}">Tickets</a></h5>
+    </li>
     <li class="nav-link">
         <h5><a href="{{url_for('users.my_info')}}">My stuff</a></h5>
     </li>

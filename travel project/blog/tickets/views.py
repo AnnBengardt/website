@@ -1,8 +1,9 @@
-from flask import render_template, url_for, flash, request, redirect, Blueprint, abort
+from flask import render_template, request, Blueprint
 from flask_login import current_user, login_required
-from blog import db
+from blog import db, mail
 from blog.models import Flight, Ticket
 from blog.tickets.forms import SearchForm
+from flask_mail import Message
 import stripe
 
 public_key = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh'
@@ -12,6 +13,7 @@ stripe.api_key = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
 tickets = Blueprint('tickets', __name__)
 
 
+@login_required
 @tickets.route('/ticket', methods=['GET', 'POST'])
 def ticket():
     form = SearchForm()
@@ -36,6 +38,10 @@ def success(flight_id):
         new_ticket = Ticket(info.date, info.departure, info.arrival, current_user.id, info.id)
         db.session.add(new_ticket)
         db.session.commit()
+        msg = Message('Purchase confirmation!', sender='ann.bengardt@gmail.com', recipients=[current_user.email])
+        msg.body = "You've bought a ticket\n{} - {}\n{}".format(info.departure, info.arrival, info.date)
+        mail.send(msg)
+
     return render_template('success.html')
 
 
