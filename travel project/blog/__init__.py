@@ -6,7 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'qwerty123458'
+app.config['SECRET_KEY'] = '.'
 app.config.from_pyfile('config.cfg')
 
 mail = Mail(app)

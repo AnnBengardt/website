@@ -25,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="CSS File" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -72,6 +72,25 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="ticket_generator" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="travel project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ticket_generator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -96,6 +115,7 @@
       <workItem from="1590570208245" duration="17873000" />
       <workItem from="1591024811188" duration="10860000" />
       <workItem from="1591084114048" duration="8172000" />
+      <workItem from="1591095031801" duration="9740000" />
     </task>
     <servers />
   </component>
@@ -103,10 +123,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="140" y="41" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591038502904">
+    <state x="140" y="41" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591100143186">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="140" y="41" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1591038502904" />
+    <state x="140" y="41" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1591100143186" />
     <state x="548" y="170" key="FileChooserDialogImpl" timestamp="1587654484390">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

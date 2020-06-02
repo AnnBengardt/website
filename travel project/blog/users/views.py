@@ -21,7 +21,8 @@ def register():
     if form.validate_on_submit():
         user = User(email=form.email.data, username=form.username.data, password=form.password.data)
         if User.query.filter_by(email=form.email.data).first() or User.query.filter_by(username=form.username.data).first():
-            return redirect(url_for('users.register'))
+            flash('This email or username has been already used')
+            return render_template('register.html', form=form)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('users.login'))
@@ -35,10 +36,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if not user:
-            return redirect(url_for('users.login'))
+            flash('Incorrect email')
+            return render_template('login.html', form=form)
         if user.check_password(form.password.data) and user is not None:
             login_user(user)
-            flash('Welcome back!')
             next = request.args.get('next')
             if next == None or not next[0] == '/':
                 next = url_for('core.index')

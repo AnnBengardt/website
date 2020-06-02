@@ -8,11 +8,13 @@
             </div>
         </div>
         {% for post in posts.items %}
+        <div class="jumbotron">
         <h2> <a href="{{url_for('posts.read_post', post_id = post.id)}}">{{post.title}}</a> </h2>
         Author: <a href="{{url_for('users.user_posts', username = post.author.username)}}">{{post.author.username}}</a>
         <p class="text-muted">Publishing date: {{post.date.strftime("%d-%m-%Y")}}</p>
         <br>
         <p>{{post.text}}</p>
+        </div>
         {% endfor %}
     </div>
 

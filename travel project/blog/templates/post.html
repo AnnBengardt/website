@@ -2,9 +2,11 @@
 {% block content %}
 <div class="jumbotron">
     <h1>{{title}}</h1>
-    <h2>Author: {{post.author.username}}</h2>
+    <h2>Author: <a href="{{url_for('users.user_posts', username=post.author.username)}}">{{post.author.username}}</a></h2>
     <h3>Date: {{date.strftime('%d-%m-%Y')}}</h3>
-    <p>{{post.text}}</p>
+    <br>
+    <p align="center">{{post.text}}</p>
+
 
     {% if post.author == current_user %}
     <div>

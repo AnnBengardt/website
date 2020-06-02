@@ -14,7 +14,7 @@
 <body>
 <ul class = 'nav'>
     <li class="nav-link">
-        <a href="{{url_for('core.index')}}">Home</a>
+        <a href="{{url_for('core.index')}}">Air</a>
     </li>
     <li class="nav-link">
         <a href="{{url_for('core.information')}}">What is this site?</a>
@@ -34,6 +34,17 @@
         <div class="container">
           <div class="row">
             <div class="col-md-9 col-lg-8 mx-auto">
+                {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                        <ul>
+                        {% for message in messages %}
+                          <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                        </div>
+                      {% endif %}
+                    {% endwith %}
               <h3 class="login-heading mb-4">Welcome to Air!</h3>
                 <form class='form-group' method="POST">
                     {{form.hidden_tag()}}

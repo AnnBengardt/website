@@ -30,27 +30,29 @@
 
     <div class="container">
         {% for flight in flights.items %}
-        <div class="card">
-            <div class="card-body">
-                <h2>{{flight.departure}} — {{flight.arrival}}</h2>
-                <h3> {{ flight.date }} </h3>
-                <p>price: {{ flight.price }}</p>
-                <form action="{{url_for('tickets.success', flight_id = flight.id)}}" methods="POST">
-                    <script
-                        src = "https://checkout.stripe.com/checkout.js"
-                        class = "stripe-button"
-                        data-key = {{public_key}}
-                        data-amount = {{flight.price * 100}}
-                        data-currency = 'rub'
-                        data-name = "Purchasing a ticket"
-                        data-description = "Purchase"
-                        data-image = "https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
-                        data-locale = "auto"
-                        data-zip-code = "true"
-                    ></script>
-                </form>
-            </div>
-        </div>
+            {% if flight.date.strftime('%Y-%m-%d') >= today %}
+                <div class="card">
+                    <div class="card-body">
+                        <h2>{{flight.departure}} — {{flight.arrival}}</h2>
+                        <h3> {{ flight.date }} </h3>
+                        <p>price: {{ flight.price }}</p>
+                        <form action="{{url_for('tickets.success', flight_id = flight.id)}}" methods="POST">
+                            <script
+                                src = "https://checkout.stripe.com/checkout.js"
+                                class = "stripe-button"
+                                data-key = {{public_key}}
+                                data-amount = {{flight.price * 100}}
+                                data-currency = 'rub'
+                                data-name = "Purchasing a ticket"
+                                data-description = "Purchase"
+                                data-image = "https://images.unsplash.com/photo-1559268950-2d7ceb2efa3a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+                                data-locale = "auto"
+                                data-zip-code = "true"
+                            ></script>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 

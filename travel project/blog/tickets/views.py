@@ -4,6 +4,7 @@ from blog import db, mail
 from blog.models import Flight, Ticket
 from blog.tickets.forms import SearchForm
 from flask_mail import Message
+from datetime import date
 import stripe
 
 public_key = 'pk_test_6pRNASCoBOKtIshFeQd4XMUh'
@@ -16,19 +17,20 @@ tickets = Blueprint('tickets', __name__)
 @login_required
 @tickets.route('/ticket', methods=['GET', 'POST'])
 def ticket():
+    today = str(date.today())
     form = SearchForm()
     if form.validate_on_submit():
         page = request.args.get('page', 1, type=int)
         if form.select.data == 'Departure location':
-            flights = Flight.query.filter_by(departure=form.search.data).paginate(page=page, per_page=5)
+            flights = Flight.query.filter_by(departure=form.search.data).order_by(Flight.date.asc()).paginate(page=page, per_page=5)
         else:
-            flights = Flight.query.filter_by(arrival=form.search.data).paginate(page=page, per_page=5)
-        return render_template('ticket.html', flights=flights, public_key=public_key, form=form)
+            flights = Flight.query.filter_by(arrival=form.search.data).order_by(Flight.date.asc()).paginate(page=page, per_page=5)
+        return render_template('ticket.html', flights=flights, public_key=public_key, form=form, today=today)
     else:
         page = request.args.get('page', 1, type=int)
         flights = Flight.query.order_by(Flight.date.asc()).paginate(page=page, per_page=7)
 
-        return render_template('ticket.html', flights=flights, public_key=public_key, form=form)
+        return render_template('ticket.html', flights=flights, public_key=public_key, form=form, today=today)
 
 
 @tickets.route('/success/<flight_id>')
