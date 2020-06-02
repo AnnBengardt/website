@@ -22,28 +22,12 @@
     <li class="nav-link">
         <a href="{{url_for('tickets.ticket')}}">Tickets</a>
     </li>
-
-    {% if current_user.is_authenticated %}
-    <li class="nav-link">
-        <a href="{{url_for('users.my_info')}}">My stuff</a>
-    </li>
-    <li class="nav-link">
-        <a href="{{url_for('posts.create')}}">Post something</a>
-    </li>
-    <li class="nav-link">
-        <a href="{{url_for('users.account')}}">Edit profile page</a>
-    </li>
-    <li class="nav-link">
-        <a href="{{url_for('users.logout')}}">Log out</a>
-    </li>
-    {% else %}
     <li class="nav-link">
         <a href="{{url_for('users.login')}}">Log in</a>
     </li>
     <li class="nav-link">
         <a href="{{url_for('users.register')}}">Register</a>
     </li>
-    {% endif %}
 </ul>
 <div class="container-fluid">
   <div class="row no-gutter">
