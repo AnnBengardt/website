@@ -13,7 +13,7 @@
 	.info-card {
 		width: 100%;
 		border: 1px solid rgb(215, 215, 215);
-		position: center;
+		position: relative;
 		font-family: 'Lato', sans-serif;
 		margin-bottom: 20px;
 		overflow: hidden;
@@ -112,7 +112,5 @@
 		color: rgb(51, 51, 51) !important;
 	}
 	a.github:hover {
-		background-color: rgb(51, 51, 51) !important;
-	}
-
-
+        background-color: rgb(51, 51, 51) !important;
+    }
